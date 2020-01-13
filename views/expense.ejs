@@ -1,0 +1,11 @@
+<h3 class="mt-4">Expenses</h3>
+<%- messages('express-messages', locals) %>
+<ul>
+    <% expenses.forEach((item) => { %>
+      <li><a href="/expense/<%= item.id %>"><%= item.title %></a>
+      </li>
+    <% }) %>
+  </ul>
+
+<a href="/expense/add" class="btn btn-primary">Add expense</a>
+<a href="/dashboard" class="btn btn-secondary">Back</a>

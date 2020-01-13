@@ -1,0 +1,35 @@
+<h1 class="mt-4">Settle Bill</h1>
+<p class="lead mb-3">Welcome <%=name%></p>
+
+<p class="lead mb-3">Cash : <%= cash %>/-</p>
+<%- messages('express-messages', locals) %>
+
+<ul>
+    <% bill.forEach((item) =>{ %>
+            <li><%= item.description %></li>
+            <p>Split among <%= item.friend %></p>
+            <p>Total amount Rs.<%= item.amount %>/-</p>
+            <p>Amount to be paid Rs.<%= item.amount/(item.friend.length +1) %>/- </p>
+            <button onclick="openSettle('<%= item.friend %>','<%= item._id %>','<%= item.amount/(item.friend.length +1) %>','<%= item.amount %>')" class="btn btn-warning" >Settling</button>
+    <% }) %>
+</ul>
+
+
+<script>
+    function openSettle(friend,id,amt,tot){
+        $.ajax({
+            url: "/settling",
+            type: 'POST',
+            data: {
+                bill_id : id,
+                amt : amt,
+                friend : friend,
+                total : tot
+            },
+            dataType : 'json',
+            success: () =>{
+                console.log('Success');
+            }
+        });
+    }
+</script>

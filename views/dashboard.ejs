@@ -1,0 +1,93 @@
+<h1 class="mt-4">Dashboard</h1>
+<p class="lead mb-3">Welcome <%=name%></p>
+
+<p class="lead mb-3">Cash : <%= cash %>/-</p>
+<%- messages('express-messages', locals) %>
+    
+<h4>Bills :</h4>
+<ul>
+    <% bill.forEach((item) => { %>
+        <li><%= item.description %></li>
+        <p>Split among <%= item.friend %></p>
+        <p>You paid Rs.<%= item.amount %>/-</p>
+    <% }) %> 
+ 
+</ul>
+
+  
+<div id="myDiv">
+    
+
+    <button class="btn btn-info" onclick="openForm()">Add a bill</button>
+    <br><br>
+    <a class="btn btn-warning" href="/settle">Settle</a>
+    <br><br>
+    <a href="/expense" class="btn btn-primary">Expenses</a>
+    <br><br>
+    <a href="/users/logout" class="btn btn-secondary">Logout</a>
+</div>
+
+<div class="row mt-5" >
+    <div class="col-md-6 m-auto">
+      <div class="card card-body" style="display: none;" id="myForm" >
+                <form method="POST" action="/bill">
+                    <h4 class="mt-4">Split Bill</h4>
+                        <div id="formul" >
+                            <div id="dynamicInput[0]">
+                            Friend 1<br><input type="text" name="friends"> 
+                            <button type="button"  onclick="addInput();">+</button>
+                        </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input type="text" placeholder="Enter description" name="description" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="amount">Amount</label>
+                            <input type="number" placeholder="Enter Bill amount" name="amount" required>
+                        </div>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                    <button type="button" class="btn btn-danger" onclick="closeForm()">Close</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+  
+<script>
+// for splitwise form
+function openForm() {
+    document.getElementById("myForm").style.display = "block";
+    document.getElementById("myDiv").style.display = "none";
+  }
+  
+  function closeForm() {
+    document.getElementById("myForm").style.display = "none";
+    document.getElementById("myDiv").style.display = "block";
+  }
+
+  var counter = 1;
+var dynamicInput = [];
+
+function addInput(){
+    var newdiv = document.createElement('div');
+    newdiv.id = dynamicInput[counter];
+    newdiv.innerHTML = "Friend " + (counter + 1) + " <br><input type='text' name='friends'> <input type='button' value='-' onClick='removeInput("+dynamicInput[counter]+");'>";
+    document.getElementById('formul').appendChild(newdiv);
+    counter++;
+}
+
+function removeInput(id){
+    var elem = document.getElementById(id);
+    return elem.parentNode.removeChild(elem);
+  }
+
+
+
+  </script>
+  

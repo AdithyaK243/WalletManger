@@ -1,0 +1,10 @@
+<h3 class="mt-4"><%=expense.title %></h3>
+<p class="lead mb-3"><%= expense.description %></p>
+<p class="lead mb-3">Rs. <%= expense.amount %> /-</p>
+
+
+
+<a href="/expense/edit/<%= expense.id %>" class="btn btn-primary">Edit</a>
+<br>
+<br>
+<a href="/expense/delete/<%= expense.id %>" class="btn btn-danger" >Delete</a>
